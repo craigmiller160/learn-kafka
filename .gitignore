@@ -3,3 +3,6 @@
 *.iml
 target
 *.class
+.gradle
+build
+out
