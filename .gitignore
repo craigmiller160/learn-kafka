@@ -7,3 +7,5 @@ target
 build
 out
 .terraform
+*.tfstate
+*.tfstate.backup
