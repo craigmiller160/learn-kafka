@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class KafkaService(private val template: KafkaOperations<Any, Any>) {
-  @KafkaListener(topics = ["HelloTopic"])
+  @KafkaListener(id = "helloTopicGroup", topics = ["HelloTopic"])
   fun listenToHelloTopic(message: Message) {
     println("Received HelloTopic Message: $message")
   }
