@@ -20,3 +20,16 @@ java.sourceCompatibility = JavaVersion.VERSION_19
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
 }
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict", "-Xcontext-receivers")
+        jvmTarget = "19"
+    }
+}
+
+configure<SpotlessExtension> {
+    kotlin {
+        ktfmt()
+    }
+}
