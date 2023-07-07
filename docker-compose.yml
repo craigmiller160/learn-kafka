@@ -33,4 +33,4 @@ services:
     environment:
       DYNAMIC_CONFIG_ENABLED: 'true'
     volumes:
-      - ./kui/dynamic_config.yaml:/etc/kafkaui/dynamic_config.yaml
+      - ./kui:/etc/kafkaui
