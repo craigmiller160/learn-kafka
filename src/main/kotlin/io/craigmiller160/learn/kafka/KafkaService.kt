@@ -27,7 +27,10 @@ class KafkaService(
             .let { ContainerProperties(it) }
             .also { props -> props.setGroupId("helloTopicGroup2") }
             .let { KafkaMessageListenerContainer(consumerFactory, it) }
-            .also { listener -> listener.setupMessageListener(kafkaMessageHandler("name")) }
+            .also { listener ->
+              listener.setupMessageListener(kafkaMessageHandler("name"))
+              listener.start()
+            }
     synchronized(listenersLock) { listeners += listener }
   }
 
