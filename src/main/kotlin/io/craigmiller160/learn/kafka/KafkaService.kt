@@ -25,6 +25,7 @@ class KafkaService(
     val listener =
         TopicPartitionOffset(KafkaConfig.HELLO_TOPIC, 0)
             .let { ContainerProperties(it) }
+            .also { props -> props.setGroupId("helloTopicGroup2") }
             .let { KafkaMessageListenerContainer(consumerFactory, it) }
             .also { listener -> listener.setupMessageListener(kafkaMessageHandler("name")) }
     synchronized(listenersLock) { listeners += listener }
