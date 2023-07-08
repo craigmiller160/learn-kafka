@@ -27,8 +27,12 @@ class KafkaListener(private val consumerFactory: ConsumerFactory<Any, Any>) {
   }
 
   fun stopListeners() {
-    // TODO need local copy and synchronized
-    listeners.forEach { listener -> listener.stop() }
-    listeners.clear()
+    val localListeners =
+        synchronized(listenersLock) {
+          val listenersCopy = listeners.map { it }
+          listeners.clear()
+          listenersCopy
+        }
+    localListeners.forEach { it.stop() }
   }
 }
