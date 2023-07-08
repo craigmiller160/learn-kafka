@@ -12,8 +12,8 @@ provider "kafka" {
   tls_enabled = false
 }
 
-resource "kafka_topic" "tf_topic" {
-  name               = "tf-topic"
+resource "kafka_topic" "hello_topic" {
+  name               = "hello-topic"
   partitions         = 1
   replication_factor = 1
 }
