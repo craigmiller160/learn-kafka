@@ -1,6 +1,7 @@
 package io.craigmiller160.learn.kafka
 
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -15,4 +16,6 @@ class KafkaController(private val kafkaService: KafkaService) {
   fun publishToHelloTopic(@RequestBody message: Message) {
     kafkaService.publishToHelloTopic(message)
   }
+
+  @PostMapping("/listeners/{name}") fun addListener(@PathVariable name: String) {}
 }
