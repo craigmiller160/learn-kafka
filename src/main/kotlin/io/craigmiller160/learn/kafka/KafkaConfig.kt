@@ -12,6 +12,9 @@ import org.springframework.util.backoff.FixedBackOff
 
 @Configuration
 class KafkaConfig {
+  companion object {
+    const val HELLO_TOPIC = "hello-topic"
+  }
   @Bean
   fun errorHandler(template: KafkaOperations<Any, Any>): CommonErrorHandler =
       DefaultErrorHandler(DeadLetterPublishingRecoverer(template), FixedBackOff(1000L, 2))
