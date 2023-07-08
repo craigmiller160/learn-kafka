@@ -1,6 +1,7 @@
 package io.craigmiller160.learn.kafka
 
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -17,5 +18,14 @@ class KafkaController(private val kafkaService: KafkaService) {
     kafkaService.publishToHelloTopic(message)
   }
 
-  @PostMapping("/listeners/{name}") fun addListener(@PathVariable name: String) {}
+  @PostMapping("/listeners/{name}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  fun addListener(@PathVariable name: String) {
+    kafkaService.addListener(name)
+  }
+
+  @DeleteMapping("/listeners")
+  fun stopListeners() {
+    kafkaService.stopListeners()
+  }
 }
