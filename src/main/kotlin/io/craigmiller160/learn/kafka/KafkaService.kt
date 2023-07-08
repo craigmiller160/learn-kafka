@@ -18,19 +18,19 @@ class KafkaService(
 
   @KafkaListener(id = "helloTopicGroup", topics = [KafkaConfig.HELLO_TOPIC])
   fun listenToHelloTopic(message: Message) {
-    kafkaMessageHandler("MainListener")(message)
+    kafkaMessageHandler("MainListener").onMessage(message)
   }
 
   fun addListener(name: String) {
     val listener =
         TopicPartitionOffset(KafkaConfig.HELLO_TOPIC, 0)
             .let { ContainerProperties(it) }
-            .also { props -> props.setGroupId("helloTopicGroup2") }
-            .let { KafkaMessageListenerContainer(consumerFactory, it) }
-            .also { listener ->
-              listener.setupMessageListener(kafkaMessageHandler("name"))
-              listener.start()
+            .apply {
+              setGroupId("helloTopicGroup2")
+              messageListener = kafkaMessageHandler(name)
             }
+            .let { KafkaMessageListenerContainer(consumerFactory, it) }
+            .also { listener -> listener.start() }
     synchronized(listenersLock) { listeners += listener }
   }
 

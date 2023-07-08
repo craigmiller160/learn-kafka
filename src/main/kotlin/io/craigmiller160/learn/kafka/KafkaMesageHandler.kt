@@ -1,5 +1,8 @@
 package io.craigmiller160.learn.kafka
 
-fun kafkaMessageHandler(name: String): (Message) -> Unit = { message ->
-  println("[$name Handler]: $message")
-}
+import org.springframework.kafka.listener.GenericMessageListener
+
+fun kafkaMessageHandler(name: String): GenericMessageListener<Message> =
+    GenericMessageListener { message ->
+      println("[$name Handler]: $message")
+    }
