@@ -1,6 +1,5 @@
 package io.craigmiller160.learn.kafka
 
-import org.apache.kafka.clients.admin.NewTopic
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.core.KafkaOperations
@@ -18,6 +17,4 @@ class KafkaConfig {
       DefaultErrorHandler(DeadLetterPublishingRecoverer(template), FixedBackOff(1000L, 2))
 
   @Bean fun converter(): RecordMessageConverter = JsonMessageConverter()
-
-  @Bean fun helloTopic(): NewTopic = NewTopic("HelloTopic", 1, 1)
 }
