@@ -18,7 +18,7 @@ class KafkaService(
 
   @KafkaListener(id = "helloTopicGroup", topics = [KafkaConfig.HELLO_TOPIC])
   fun listenToHelloTopic(message: Message) {
-    kafkaMessageHandler("MainListener").onMessage(message)
+    kafkaMessageHandler("MainListener")(message)
   }
 
   fun addListener(name: String) {
@@ -27,7 +27,7 @@ class KafkaService(
             .let { ContainerProperties(it) }
             .apply {
               setGroupId("helloTopicGroup2")
-              messageListener = kafkaMessageHandler(name)
+              messageListener = kafkaMessageListener(name)
             }
             .let { KafkaMessageListenerContainer(consumerFactory, it) }
             .also { listener -> listener.start() }
