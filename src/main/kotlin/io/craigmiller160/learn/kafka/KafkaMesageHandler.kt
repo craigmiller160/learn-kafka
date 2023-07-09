@@ -6,4 +6,6 @@ fun kafkaMessageHandler(name: String): (Message) -> Unit = { message ->
   println("[$name Handler]: $message")
 }
 
-fun kafkaMessageListener(name: String): MessageListener<Message, Unit> = kafkaMessageListener(name)
+fun kafkaMessageListener(name: String): MessageListener<Unit, Message> = MessageListener { record ->
+  println("[$name Handler]: ${record.value()}")
+}
