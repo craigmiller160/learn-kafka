@@ -17,7 +17,7 @@ class KafkaConfig {
   }
   @Bean
   fun errorHandler(template: KafkaOperations<Any, Any>): CommonErrorHandler =
-      DefaultErrorHandler(DeadLetterPublishingRecoverer(template), FixedBackOff(1000L, 2))
+      DefaultErrorHandler(DeadLetterPublishingRecoverer(template), FixedBackOff(10_000L, 5))
 
   @Bean fun converter(): RecordMessageConverter = JsonMessageConverter()
 }
